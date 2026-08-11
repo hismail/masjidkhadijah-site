@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Masjid Khadijah – Arcadia, Pretoria</title>
 <meta name="description" content="Masjid Khadijah (RA), 802 Arcadia Street, Arcadia, Pretoria – daily salaah times, Jumu'ah, madrasah and programmes, and how to contribute.">
+<link rel="icon" type="image/png" href="assets/logo-mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -16,7 +17,7 @@
     --ivory:#fffdf8;
     --oak:#c19a6b;            /* mihrab timber */
     --oak-deep:#a67c48;
-    --stone:#8b959b;          /* carpet grey-blue */
+    --gold:#e0b76f;           /* backlit signage glow */
     --ink:#22241f;
     --muted:#6b6f66;
     --line:#e6dfd0;
@@ -29,16 +30,21 @@
   img{max-width:100%}
   a{color:var(--oak-deep)}
 
+  /* Logo images are black-on-white: on dark panels invert + screen-blend
+     (white bg goes transparent); on light panels multiply-blend. */
+  .logo-dark{filter:invert(1);mix-blend-mode:screen}
+  .logo-light{mix-blend-mode:multiply}
+
   /* ---------- Nav (styled after the masjid's black signage) ---------- */
   header{position:sticky;top:0;z-index:50;background:var(--black);box-shadow:0 2px 12px rgba(0,0,0,.3)}
-  .nav{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.25rem}
-  .brand{display:flex;align-items:center;gap:.75rem;text-decoration:none}
-  .brand .mark{width:34px;height:44px;flex:0 0 34px}
+  .nav{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.6rem 1.25rem}
+  .brand{display:flex;align-items:center;gap:.8rem;text-decoration:none}
+  .brand img{height:44px;width:auto}
   .brand .name{color:#fff;font-weight:700;font-size:1rem;letter-spacing:.12em;text-transform:uppercase}
   .brand .name small{display:block;font-weight:500;font-size:.68rem;color:#b9bdb6;letter-spacing:.28em}
   nav ul{display:flex;gap:1.4rem;list-style:none}
   nav a{color:#d8dad4;text-decoration:none;font-size:.92rem;font-weight:500}
-  nav a:hover{color:var(--oak)}
+  nav a:hover{color:var(--gold)}
   .menu-btn{display:none;background:none;border:0;color:#fff;font-size:1.6rem;cursor:pointer}
   @media(max-width:760px){
     .menu-btn{display:block}
@@ -49,26 +55,20 @@
     nav a{display:block;padding:.85rem 1.25rem}
   }
 
-  /* ---------- Hero ---------- */
-  .hero{background:
-      radial-gradient(1200px 500px at 50% -200px, rgba(193,154,107,.18), transparent 60%),
-      var(--black);
-    color:#fff;text-align:center;padding:4.5rem 1.25rem 5rem;position:relative;overflow:hidden}
-  .hero .star{position:absolute;opacity:.07;width:520px;height:520px}
-  .hero .star.tl{top:-200px;left:-180px}
-  .hero .star.br{bottom:-200px;right:-180px}
-  .hero-inner{position:relative}
-  .arabic-title{font-family:'Amiri',serif;font-size:clamp(2rem,6vw,3.2rem);color:var(--oak);line-height:1.3}
-  .arabic-title small{font-size:.45em;color:#c9cdc5}
-  .hero h1{font-size:clamp(1.7rem,4.5vw,2.6rem);font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-top:.6rem}
-  .hero .locline{color:#b9bdb6;letter-spacing:.34em;text-transform:uppercase;font-size:.8rem;margin-top:.5rem}
-  .hero .rule{width:220px;height:1px;background:linear-gradient(90deg,transparent,var(--oak),transparent);margin:1.4rem auto}
-  .hero .sub{color:#c9cdc5;margin:0 auto 2rem;max-width:36rem;font-size:1rem}
+  /* ---------- Hero: the masjid at night ---------- */
+  .hero{position:relative;color:#fff;text-align:center;padding:5.5rem 1.25rem 6rem;overflow:hidden;background:var(--black)}
+  .hero .bg{position:absolute;inset:0;background:url('assets/hero-exterior.jpg') center 35%/cover no-repeat}
+  .hero .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,18,19,.82) 0%,rgba(17,18,19,.62) 45%,rgba(17,18,19,.88) 100%)}
+  .hero-inner{position:relative;max-width:44rem;margin:0 auto}
+  .hero-logo{width:min(420px,78%);margin:0 auto 1.4rem;display:block}
+  .hero .locline{color:#d8dad4;letter-spacing:.34em;text-transform:uppercase;font-size:.82rem}
+  .hero .rule{width:220px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1.4rem auto}
+  .hero .sub{color:#e4e6e0;margin:0 auto 2rem;max-width:36rem;font-size:1rem;text-shadow:0 1px 8px rgba(0,0,0,.5)}
   .btn{display:inline-block;padding:.8rem 1.7rem;border-radius:999px;font-weight:600;font-size:.95rem;text-decoration:none;transition:transform .15s ease}
   .btn:hover{transform:translateY(-2px)}
-  .btn-oak{background:var(--oak);color:var(--black)}
-  .btn-outline{border:1.5px solid rgba(255,255,255,.5);color:#fff;margin-left:.6rem}
-  .btn-outline:hover{border-color:var(--oak);color:var(--oak)}
+  .btn-gold{background:var(--gold);color:var(--black)}
+  .btn-outline{border:1.5px solid rgba(255,255,255,.6);color:#fff;margin-left:.6rem}
+  .btn-outline:hover{border-color:var(--gold);color:var(--gold)}
 
   /* ---------- Sections ---------- */
   section{padding:4rem 1.25rem}
@@ -87,26 +87,42 @@
 
   /* Programmes */
   .alt{background:var(--ivory)}
-  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.4rem;margin-top:2rem}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.4rem;margin-top:2rem}
   .card{background:var(--cream);border:1px solid var(--line);border-radius:var(--radius);padding:1.6rem}
-  .card .icon{width:44px;height:44px;border-radius:10px;background:var(--black);color:var(--oak);display:flex;align-items:center;justify-content:center;font-size:1.25rem;margin-bottom:1rem}
+  .card .icon{width:44px;height:44px;border-radius:10px;background:var(--black);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:1.25rem;margin-bottom:1rem}
   .card h3{color:var(--black);font-size:1.08rem;margin-bottom:.5rem}
   .card p{font-size:.92rem;color:var(--muted)}
+  .card ul{list-style:none;margin-top:.6rem;font-size:.92rem;color:var(--ink)}
+  .card li{display:flex;gap:.55rem;padding:.18rem 0}
+  .card li::before{content:"◆";color:var(--oak);font-size:.65rem;line-height:1.9}
+  .card .foot{margin-top:.8rem;font-size:.88rem;color:var(--muted)}
+  .card .foot strong{color:var(--ink)}
+
+  /* Gallery */
+  .gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:1rem;margin-top:2rem}
+  .gallery figure{position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);margin:0}
+  .gallery img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s ease}
+  .gallery figure:hover img{transform:scale(1.04)}
+  .g-wide{grid-column:span 8;aspect-ratio:16/9}
+  .g-tall{grid-column:span 4;aspect-ratio:3/4}
+  .g-half{grid-column:span 6;aspect-ratio:4/3}
+  @media(max-width:760px){.g-wide,.g-tall,.g-half{grid-column:span 12;aspect-ratio:4/3}}
 
   /* Donations */
   .donate{background:var(--black);color:#fff;position:relative;overflow:hidden}
-  .donate .star{position:absolute;opacity:.05;width:600px;height:600px;top:50%;left:50%;transform:translate(-50%,-50%)}
-  .donate .wrap{position:relative}
-  .donate .kicker{color:var(--oak)}
+  .donate .wrap{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:2.5rem;align-items:center}
+  @media(max-width:820px){.donate .wrap{grid-template-columns:1fr}}
+  .donate .kicker{color:var(--gold)}
   .donate h2{color:#fff}
   .donate .lead{color:#c9cdc5}
-  .bank-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.4rem;margin-top:2rem}
-  .bank{background:rgba(255,255,255,.05);border:1px solid rgba(193,154,107,.45);border-radius:var(--radius);padding:1.5rem}
-  .bank h3{color:var(--oak);font-size:.95rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.9rem}
-  .bank dl{display:grid;grid-template-columns:auto 1fr;gap:.35rem .9rem;font-size:.93rem}
+  .bank{background:rgba(255,255,255,.05);border:1px solid rgba(224,183,111,.5);border-radius:var(--radius);padding:1.6rem;margin-top:1.6rem;max-width:30rem}
+  .bank h3{color:var(--gold);font-size:.95rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.9rem}
+  .bank dl{display:grid;grid-template-columns:auto 1fr;gap:.4rem 1rem;font-size:.95rem}
   .bank dt{color:#9aa09a}
   .bank dd{font-weight:600}
-  .donate .note{margin-top:1.6rem;font-size:.85rem;color:#9aa09a}
+  .donate .note{margin-top:1.2rem;font-size:.85rem;color:#9aa09a;max-width:30rem}
+  .donate .photo{border-radius:var(--radius);overflow:hidden;box-shadow:0 14px 40px rgba(0,0,0,.5)}
+  .donate .photo img{display:block;width:100%}
 
   /* About & contact */
   .about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:2.5rem;margin-top:2rem;align-items:start}
@@ -121,38 +137,18 @@
   .contact-card li span:first-child{color:var(--oak-deep)}
   .map{border:0;width:100%;height:280px;border-radius:10px;margin-top:1.2rem}
 
-  footer{background:var(--black);color:#9aa09a;text-align:center;padding:1.8rem 1.25rem;font-size:.85rem}
-  footer .ayah{font-family:'Amiri',serif;color:var(--oak);font-size:1.1rem;margin-bottom:.4rem}
+  footer{background:var(--black);color:#9aa09a;text-align:center;padding:2rem 1.25rem}
+  footer .flogo{width:200px;margin:0 auto 1rem;display:block}
+  footer .ayah{font-family:'Amiri',serif;color:var(--gold);font-size:1.1rem;margin-bottom:.4rem}
+  footer p{font-size:.85rem}
 </style>
 </head>
 <body>
 
-<!-- Eight-point star motif echoing the prayer-hall ceiling -->
-<svg width="0" height="0" style="position:absolute">
-  <defs>
-    <g id="star8">
-      <path d="M100 0 L123 77 L200 100 L123 123 L100 200 L77 123 L0 100 L77 77 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
-      <path d="M100 30 L117 83 L170 100 L117 117 L100 170 L83 117 L30 100 L83 83 Z" fill="none" stroke="currentColor" stroke-width="1"/>
-      <circle cx="100" cy="100" r="14" fill="none" stroke="currentColor" stroke-width="1"/>
-    </g>
-  </defs>
-</svg>
-
 <header>
   <div class="nav">
     <a class="brand" href="#top">
-      <svg class="mark" viewBox="0 0 34 44" aria-hidden="true">
-        <!-- minaret silhouette, white on black like the signage -->
-        <g fill="#fff">
-          <circle cx="17" cy="3" r="1.6"/>
-          <rect x="16.2" y="4" width="1.6" height="4"/>
-          <path d="M17 7c2.8 2.4 5 4.6 5 7.5 0 2.5-2.2 4-5 4s-5-1.5-5-4c0-2.9 2.2-5.1 5-7.5Z"/>
-          <rect x="11" y="19.5" width="12" height="2.2" rx="1.1"/>
-          <path d="M13 23h8l-1 9h-6l-1-9Z"/>
-          <rect x="10" y="33" width="14" height="2.2" rx="1.1"/>
-          <path d="M12.5 36.5h9L20.5 44h-7l-1-7.5Z" opacity=".85"/>
-        </g>
-      </svg>
+      <img class="logo-dark" src="assets/logo-mark.png" alt="Masjid Khadijah logo">
       <span class="name">Masjid Khadijah<small>Arcadia | Pretoria</small></span>
     </a>
     <button class="menu-btn" aria-label="Menu" onclick="document.getElementById('nav').classList.toggle('open')">&#9776;</button>
@@ -160,6 +156,7 @@
       <ul>
         <li><a href="#salaah">Salaah Times</a></li>
         <li><a href="#programmes">Programmes</a></li>
+        <li><a href="#gallery">Gallery</a></li>
         <li><a href="#donate">Contribute</a></li>
         <li><a href="#contact">About &amp; Contact</a></li>
       </ul>
@@ -170,15 +167,13 @@
 <main id="top">
 
   <div class="hero">
-    <svg class="star tl" viewBox="0 0 200 200" style="color:#c19a6b"><use href="#star8"/></svg>
-    <svg class="star br" viewBox="0 0 200 200" style="color:#c19a6b"><use href="#star8"/></svg>
+    <div class="bg" role="img" aria-label="Masjid Khadijah entrance at night"></div>
+    <div class="veil"></div>
     <div class="hero-inner">
-      <p class="arabic-title">مسجد خديجة <small>رضي الله عنها</small></p>
-      <h1>Masjid Khadijah</h1>
-      <p class="locline">Arcadia&nbsp;|&nbsp;Pretoria</p>
+      <img class="hero-logo logo-dark" src="assets/logo.png" alt="Masjid Khadijah – Arcadia | Pretoria">
       <div class="rule"></div>
       <p class="sub">A house of Allah at 802 Arcadia Street — on the doorstep of Hatfield and the Pretoria CBD, serving the community with daily salaah, Jumu&#8217;ah, madrasah and programmes.</p>
-      <a class="btn btn-oak" href="#salaah">Salaah Times</a>
+      <a class="btn btn-gold" href="#salaah">Salaah Times</a>
       <a class="btn btn-outline" href="#donate">Contribute</a>
     </div>
   </div>
@@ -199,7 +194,7 @@
         <iframe class="board" src="https://masjidboardlive.com/boards/?id=arcadia-khadijah" title="Masjid Khadijah live salaah times board" loading="lazy"></iframe>
         <div class="times-actions">
           <p>Live board updated by the masjid.</p>
-          <a class="btn btn-oak" href="https://masjidboardlive.com/boards/?id=arcadia-khadijah" target="_blank" rel="noopener">Open Live Board ↗</a>
+          <a class="btn btn-gold" href="https://masjidboardlive.com/boards/?id=arcadia-khadijah" target="_blank" rel="noopener">Open Live Board ↗</a>
         </div>
       </div>
     </div>
@@ -209,56 +204,72 @@
     <div class="wrap">
       <p class="kicker">Community</p>
       <h2>Programmes &amp; Madrasah</h2>
-      <p class="lead">Alhamdulillah, the masjid hosts regular programmes for all ages. Contact the masjid for enrolment and times.</p>
+      <p class="lead">Alhamdulillah, the masjid hosts regular programmes for all ages. Afternoon maktab admissions for 2026 are open.</p>
       <div class="cards">
         <div class="card">
           <div class="icon">📖</div>
-          <h3>Madrasah</h3>
-          <p>[Maktab classes for children — days, times and enrolment details go here.]</p>
+          <h3>Maktab – Boys</h3>
+          <ul>
+            <li>Monday – Friday, 15:00 – 17:00</li>
+            <li>Grades 1–7, ages 6 and above</li>
+          </ul>
+          <p class="foot">Quraan with tajweed, surahs, duaas, fiqh, history, aqaaid, hadeeth and practicals.</p>
         </div>
         <div class="card">
-          <div class="icon">🕌</div>
-          <h3>Weekly Programmes</h3>
-          <p>[Ta&#8217;leem, tafseer or bayaan schedule — e.g. after Maghrib on selected evenings.]</p>
+          <div class="icon">📖</div>
+          <h3>Maktab – Girls</h3>
+          <ul>
+            <li>Monday – Thursday, 15:00 – 16:30</li>
+            <li>Grades 1–7, ages 6 and above</li>
+          </ul>
+          <p class="foot">Quraan with tajweed, surahs, duaas, fiqh, history, aqaaid, hadeeth and practicals.</p>
         </div>
         <div class="card">
-          <div class="icon">🌙</div>
-          <h3>Ramadaan &amp; Special Events</h3>
-          <p>[Taraweeh arrangements, i&#8217;tikaaf, Eid salaah times and community iftaar details.]</p>
+          <div class="icon">📞</div>
+          <h3>Enrolment &amp; Info</h3>
+          <p>Admission for 2026 is now open. For more information:</p>
+          <ul>
+            <li>Females: <a href="tel:+27608400007">+27 60 840 0007</a></li>
+            <li>Males: <a href="tel:+27824110756">+27 82 411 0756</a></li>
+          </ul>
+          <p class="foot">[Weekly ta&#8217;leem / bayaan schedule can be added here.]</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="donate" class="donate">
-    <svg class="star" viewBox="0 0 200 200" style="color:#c19a6b"><use href="#star8"/></svg>
+  <section id="gallery">
     <div class="wrap">
-      <p class="kicker">Contribute</p>
-      <h2>Support the Masjid</h2>
-      <p class="lead">&#8220;Whoever builds a masjid for Allah, Allah will build for him a house in Paradise.&#8221; Your lillah, zakaah and sadaqah keep the masjid running.</p>
-      <div class="bank-grid">
-        <div class="bank">
-          <h3>Lillah / General</h3>
-          <dl>
-            <dt>Bank</dt><dd>[Bank name]</dd>
-            <dt>Account</dt><dd>[Account name]</dd>
-            <dt>Number</dt><dd>[Account number]</dd>
-            <dt>Branch</dt><dd>[Branch code]</dd>
-            <dt>Reference</dt><dd>Lillah + your name</dd>
-          </dl>
-        </div>
-        <div class="bank">
-          <h3>Zakaah</h3>
-          <dl>
-            <dt>Bank</dt><dd>[Bank name]</dd>
-            <dt>Account</dt><dd>[Account name]</dd>
-            <dt>Number</dt><dd>[Account number]</dd>
-            <dt>Branch</dt><dd>[Branch code]</dd>
-            <dt>Reference</dt><dd>Zakaah + your name</dd>
-          </dl>
-        </div>
+      <p class="kicker">The Masjid</p>
+      <h2>Gallery</h2>
+      <div class="gallery">
+        <figure class="g-wide"><img src="assets/hero-exterior.jpg" alt="Masjid Khadijah entrance at night" loading="lazy"></figure>
+        <figure class="g-tall"><img src="assets/sign-gold.jpg" alt="Backlit Masjid Khadijah sign" loading="lazy"></figure>
+        <figure class="g-half"><img src="assets/interior-mihrab.jpg" alt="Prayer hall, mihrab and minbar" loading="lazy"></figure>
+        <figure class="g-half"><img src="assets/allah-roundel.jpg" alt="Allah calligraphy in the prayer hall" loading="lazy"></figure>
       </div>
-      <p class="note">Please use the correct account and reference so contributions are allocated according to your intention.</p>
+    </div>
+  </section>
+
+  <section id="donate" class="donate">
+    <div class="wrap">
+      <div>
+        <p class="kicker">Contribute</p>
+        <h2>Support the Masjid</h2>
+        <p class="lead">&#8220;Whoever builds a masjid for Allah, Allah will build for him a house in Paradise.&#8221; Your contributions towards the running expenses of the masjid are much appreciated.</p>
+        <div class="bank">
+          <h3>Banking Details</h3>
+          <dl>
+            <dt>Account</dt><dd>Arcadia Islamic Centre</dd>
+            <dt>Bank</dt><dd>FNB</dd>
+            <dt>Branch code</dt><dd>252245</dd>
+            <dt>Account no</dt><dd>62833813232</dd>
+            <dt>Reference</dt><dd>Lillah</dd>
+          </dl>
+        </div>
+        <p class="note">The masjid operates under the Arcadia Islamic Centre. Please use the reference &#8220;Lillah&#8221; (or your intention) so contributions are allocated correctly.</p>
+      </div>
+      <div class="photo"><img src="assets/sign-round.jpg" alt="Masjid Khadijah hanging sign" loading="lazy"></div>
     </div>
   </section>
 
@@ -272,8 +283,8 @@
           <ul class="facts">
             <li>Daily five salaah with jamaat, and Jumu&#8217;ah</li>
             <li>Fully equipped ladies&#8217; prayer facilities</li>
+            <li>Afternoon maktab for boys and girls</li>
             <li>Convenient for students and travellers on the N4</li>
-            <li>[Parking, wudhu facilities and anything else worth mentioning]</li>
           </ul>
           <p class="lead" style="margin-top:1.4rem">[A short word from the imam or committee can go here.]</p>
         </div>
@@ -281,7 +292,8 @@
           <h3>Get in touch</h3>
           <ul>
             <li><span>📍</span><span>802 Arcadia Street, Arcadia, Pretoria</span></li>
-            <li><span>📞</span><span>[Phone number]</span></li>
+            <li><span>📞</span><span>Females: <a href="tel:+27608400007">+27 60 840 0007</a></span></li>
+            <li><span>📞</span><span>Males: <a href="tel:+27824110756">+27 82 411 0756</a></span></li>
             <li><span>✉️</span><span>[Email address]</span></li>
           </ul>
           <iframe class="map" title="Map to Masjid Khadijah" loading="lazy"
@@ -294,6 +306,7 @@
 </main>
 
 <footer>
+  <img class="flogo logo-dark" src="assets/logo.png" alt="Masjid Khadijah">
   <p class="ayah">إِنَّمَا يَعْمُرُ مَسَاجِدَ اللَّهِ مَنْ آمَنَ بِاللَّهِ وَالْيَوْمِ الْآخِرِ</p>
   <p>&copy; <span id="yr"></span> Masjid Khadijah (RA), 802 Arcadia Street, Arcadia, Pretoria · masjidkhadijah.co.za</p>
 </footer>
