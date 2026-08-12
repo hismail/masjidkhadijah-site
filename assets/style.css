@@ -45,7 +45,7 @@
 
   /* ---------- Hero: the masjid at night ---------- */
   .hero{position:relative;color:#fff;text-align:center;padding:5.5rem 1.25rem 6rem;overflow:hidden;background:var(--black)}
-  .hero .bg{position:absolute;inset:0;background:url('assets/hero-exterior.jpg') center 35%/cover no-repeat}
+  .hero .bg{position:absolute;inset:0;background:url('hero-exterior.jpg') center 35%/cover no-repeat}
   .hero .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,18,19,.82) 0%,rgba(17,18,19,.62) 45%,rgba(17,18,19,.88) 100%)}
   .hero-inner{position:relative;max-width:44rem;margin:0 auto}
   .hero-logo{width:min(420px,78%);margin:0 auto 1.4rem;display:block}
