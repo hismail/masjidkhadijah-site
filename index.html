@@ -9,159 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --black:#111213;          /* signage black */
-    --charcoal:#1c1e1f;       /* dado / dark panels */
-    --cream:#f7f3ea;          /* interior walls */
-    --ivory:#fffdf8;
-    --oak:#c19a6b;            /* mihrab timber */
-    --oak-deep:#a67c48;
-    --gold:#e0b76f;           /* backlit signage glow */
-    --ink:#22241f;
-    --muted:#6b6f66;
-    --line:#e6dfd0;
-    --radius:14px;
-    --shadow:0 10px 30px rgba(17,18,19,.10);
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--cream);line-height:1.65}
-  img{max-width:100%}
-  a{color:var(--oak-deep)}
-
-  /* Logo images are black-on-white: on dark panels invert + screen-blend
-     (white bg goes transparent); on light panels multiply-blend. */
-  .logo-dark{filter:invert(1);mix-blend-mode:screen}
-  .logo-light{mix-blend-mode:multiply}
-
-  /* ---------- Nav (styled after the masjid's black signage) ---------- */
-  header{position:sticky;top:0;z-index:50;background:var(--black);box-shadow:0 2px 12px rgba(0,0,0,.3)}
-  .nav{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.6rem 1.25rem}
-  .brand{display:flex;align-items:center;gap:.8rem;text-decoration:none}
-  .brand img{height:44px;width:auto}
-  .brand .name{color:#fff;font-weight:700;font-size:1rem;letter-spacing:.12em;text-transform:uppercase}
-  .brand .name small{display:block;font-weight:500;font-size:.68rem;color:#b9bdb6;letter-spacing:.28em}
-  nav ul{display:flex;gap:1.4rem;list-style:none}
-  nav a{color:#d8dad4;text-decoration:none;font-size:.92rem;font-weight:500}
-  nav a:hover{color:var(--gold)}
-  .menu-btn{display:none;background:none;border:0;color:#fff;font-size:1.6rem;cursor:pointer}
-  @media(max-width:760px){
-    .menu-btn{display:block}
-    nav{position:absolute;top:100%;left:0;right:0;background:var(--charcoal);display:none}
-    nav.open{display:block}
-    nav ul{flex-direction:column;gap:0;padding:.5rem 0}
-    nav li{border-top:1px solid rgba(255,255,255,.08)}
-    nav a{display:block;padding:.85rem 1.25rem}
-  }
-
-  /* ---------- Hero: the masjid at night ---------- */
-  .hero{position:relative;color:#fff;text-align:center;padding:5.5rem 1.25rem 6rem;overflow:hidden;background:var(--black)}
-  .hero .bg{position:absolute;inset:0;background:url('assets/hero-exterior.jpg') center 35%/cover no-repeat}
-  .hero .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,18,19,.82) 0%,rgba(17,18,19,.62) 45%,rgba(17,18,19,.88) 100%)}
-  .hero-inner{position:relative;max-width:44rem;margin:0 auto}
-  .hero-logo{width:min(420px,78%);margin:0 auto 1.4rem;display:block}
-  .hero .locline{color:#d8dad4;letter-spacing:.34em;text-transform:uppercase;font-size:.82rem}
-  .hero .rule{width:220px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1.4rem auto}
-  .hero .sub{color:#e4e6e0;margin:0 auto 2rem;max-width:36rem;font-size:1rem;text-shadow:0 1px 8px rgba(0,0,0,.5)}
-  .btn{display:inline-block;padding:.8rem 1.7rem;border-radius:999px;font-weight:600;font-size:.95rem;text-decoration:none;transition:transform .15s ease}
-  .btn:hover{transform:translateY(-2px)}
-  .btn-gold{background:var(--gold);color:var(--black)}
-  .btn-outline{border:1.5px solid rgba(255,255,255,.6);color:#fff;margin-left:.6rem}
-  .btn-outline:hover{border-color:var(--gold);color:var(--gold)}
-
-  /* ---------- Sections ---------- */
-  section{padding:4rem 1.25rem}
-  .wrap{max-width:1100px;margin:0 auto}
-  .kicker{color:var(--oak-deep);font-weight:700;font-size:.78rem;letter-spacing:.22em;text-transform:uppercase}
-  h2{font-size:clamp(1.5rem,3vw,2.1rem);color:var(--black);margin:.35rem 0 1.2rem;letter-spacing:.02em}
-  .lead{color:var(--muted);max-width:46rem}
-
-  /* Salaah times */
-  .times-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.8rem;margin-top:2rem}
-  .time-tile{background:var(--black);border-radius:12px;padding:.9rem 1rem 1rem;box-shadow:var(--shadow)}
-  .time-tile .salaah{color:var(--gold);font-size:.75rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;text-align:center}
-  .time-tile .trow{display:flex;justify-content:space-between;align-items:baseline;margin-top:.5rem}
-  .time-tile .tlabel{color:#9aa09a;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase}
-  .time-tile .tval{color:#d8dad4;font-size:1.05rem;font-weight:600;font-variant-numeric:tabular-nums}
-  .time-tile .tval.jamaat{color:#fff;font-size:1.18rem;font-weight:700}
-  .time-tile .sunset{color:#9aa09a;font-size:.68rem;margin-top:.45rem;text-align:center}
-  .jumuah-card{margin-top:1.6rem;background:var(--ivory);border:1px solid var(--oak);border-radius:var(--radius);padding:1.3rem 1.5rem;display:flex;gap:1.2rem;flex-wrap:wrap;align-items:center;justify-content:space-between}
-  .jumuah-card .jlabel{font-weight:700;color:var(--black);letter-spacing:.14em;text-transform:uppercase;font-size:.9rem}
-  .jumuah-card .chips{display:flex;gap:.8rem;flex-wrap:wrap}
-  .jumuah-card .chip{background:var(--black);color:var(--gold);border-radius:999px;padding:.5rem 1.2rem;font-weight:600;font-size:.92rem}
-  .jumuah-card .speaker{width:100%;font-size:.95rem;color:var(--muted)}
-  .jumuah-card .speaker strong{color:var(--ink)}
-  .times-meta{margin-top:1.1rem;font-size:.88rem;color:var(--muted)}
-  .times-note{margin-top:.4rem;font-size:.95rem;color:var(--oak-deep);font-weight:600}
-
-  /* Programmes */
-  .alt{background:var(--ivory)}
-  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.4rem;margin-top:2rem}
-  .card{background:var(--cream);border:1px solid var(--line);border-radius:var(--radius);padding:1.6rem}
-  .card .icon{width:44px;height:44px;border-radius:10px;background:var(--black);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:1.25rem;margin-bottom:1rem}
-  .card h3{color:var(--black);font-size:1.08rem;margin-bottom:.5rem}
-  .card p{font-size:.92rem;color:var(--muted)}
-  .card ul{list-style:none;margin-top:.6rem;font-size:.92rem;color:var(--ink)}
-  .card li{display:flex;gap:.55rem;padding:.18rem 0}
-  .card li::before{content:"◆";color:var(--oak);font-size:.65rem;line-height:1.9}
-  .card .foot{margin-top:.8rem;font-size:.88rem;color:var(--muted)}
-  .card .foot strong{color:var(--ink)}
-  .card .when{margin-top:.6rem;font-size:.85rem;color:var(--oak-deep);font-weight:600}
-
-  /* Notice board */
-  .notices{background:var(--black);border-radius:var(--radius);padding:1.5rem 1.7rem;margin-top:2rem;box-shadow:var(--shadow)}
-  .notices h3{color:var(--gold);font-size:.9rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.8rem}
-  .notices ul{list-style:none}
-  .notices li{color:#e4e6e0;font-size:.95rem;padding:.45rem 0;border-top:1px solid rgba(255,255,255,.08);display:flex;gap:.7rem;flex-wrap:wrap}
-  .notices li:first-child{border-top:0}
-  .notices li strong{color:#fff}
-  .notices li .nwhen{color:var(--gold);font-size:.85rem;margin-left:auto;white-space:nowrap}
-
-  /* Gallery */
-  .gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:1rem;margin-top:2rem}
-  .gallery figure{position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);margin:0}
-  .gallery img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s ease}
-  .gallery figure:hover img{transform:scale(1.04)}
-  .g-wide{grid-column:span 8;aspect-ratio:16/9}
-  .g-tall{grid-column:span 4;aspect-ratio:3/4}
-  .g-half{grid-column:span 6;aspect-ratio:4/3}
-  @media(max-width:760px){.g-wide,.g-tall,.g-half{grid-column:span 12;aspect-ratio:4/3}}
-
-  /* Donations */
-  .donate{background:var(--black);color:#fff;position:relative;overflow:hidden}
-  .donate .wrap{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:2.5rem;align-items:center}
-  @media(max-width:820px){.donate .wrap{grid-template-columns:1fr}}
-  .donate .kicker{color:var(--gold)}
-  .donate h2{color:#fff}
-  .donate .lead{color:#c9cdc5}
-  .bank{background:rgba(255,255,255,.05);border:1px solid rgba(224,183,111,.5);border-radius:var(--radius);padding:1.6rem;margin-top:1.6rem;max-width:30rem}
-  .bank h3{color:var(--gold);font-size:.95rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.9rem}
-  .bank dl{display:grid;grid-template-columns:auto 1fr;gap:.4rem 1rem;font-size:.95rem}
-  .bank dt{color:#9aa09a}
-  .bank dd{font-weight:600}
-  .donate .note{margin-top:1.2rem;font-size:.85rem;color:#9aa09a;max-width:30rem}
-  .donate .photo{border-radius:var(--radius);overflow:hidden;box-shadow:0 14px 40px rgba(0,0,0,.5)}
-  .donate .photo img{display:block;width:100%}
-
-  /* About & contact */
-  .about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:2.5rem;margin-top:2rem;align-items:start}
-  @media(max-width:820px){.about-grid{grid-template-columns:1fr}}
-  .facts{list-style:none;margin-top:1.4rem;display:grid;gap:.6rem}
-  .facts li{display:flex;gap:.7rem;font-size:.95rem;color:var(--ink)}
-  .facts li::before{content:"◆";color:var(--oak);font-size:.7rem;line-height:1.9}
-  .contact-card{background:var(--ivory);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.8rem}
-  .contact-card h3{color:var(--black);margin-bottom:1rem}
-  .contact-card ul{list-style:none}
-  .contact-card li{display:flex;gap:.7rem;padding:.45rem 0;font-size:.95rem}
-  .contact-card li span:first-child{color:var(--oak-deep)}
-  .map{border:0;width:100%;height:280px;border-radius:10px;margin-top:1.2rem}
-
-  footer{background:var(--black);color:#9aa09a;text-align:center;padding:2rem 1.25rem}
-  footer .flogo{width:200px;margin:0 auto 1rem;display:block}
-  footer .ayah{font-family:'Amiri',serif;color:var(--gold);font-size:1.1rem;margin-bottom:.4rem}
-  footer p{font-size:.85rem}
-</style>
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 
@@ -302,14 +150,14 @@
       <h2>About &amp; Contact</h2>
       <div class="about-grid">
         <div>
-          <p class="lead">Masjid Khadijah (رضي الله عنها) opened its doors in July 2025 at 802 Arcadia Street, Arcadia — centrally positioned between Muelmed and the Heart Hospital, on the doorstep of Hatfield and the Pretoria CBD, and roughly 2&nbsp;km from the University of Pretoria. The masjid welcomes residents, students and travellers alike.</p>
+          <p class="lead">Masjid Khadijah (رضي الله عنها) is situated in the heart of Arcadia, Pretoria — on the doorstep of the Pretoria CBD and Hatfield, close to the University of Pretoria, Pretoria Heart Hospital, Muelmed Hospital and Pretoria Urology Hospital, and the many embassies of the surrounding area. It serves residents, students, professionals, healthcare workers, patients, families, diplomats, visitors and travellers alike.</p>
           <ul class="facts">
             <li>Daily five salaah with jamaat, and Jumu&#8217;ah</li>
-            <li>Fully equipped ladies&#8217; prayer facilities</li>
-            <li>Afternoon maktab for boys and girls</li>
-            <li>Convenient for students and travellers on the N4</li>
+            <li>Dedicated facilities for females</li>
+            <li>Full-time and part-time madrassah for boys and girls</li>
+            <li>A full-time Imam available for religious guidance</li>
           </ul>
-          <p class="lead" style="margin-top:1.4rem">[A short word from the imam or committee can go here.]</p>
+          <a class="btn btn-gold" style="margin-top:1.6rem" href="about.html">More about the masjid →</a>
         </div>
         <div class="contact-card">
           <h3>Get in touch</h3>
