@@ -26,7 +26,8 @@
         <li><a href="#programmes">Programmes</a></li>
         <li><a href="#gallery">Gallery</a></li>
         <li><a href="#donate">Contribute</a></li>
-        <li><a href="#contact">About &amp; Contact</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
       </ul>
     </nav>
   </div>
@@ -43,6 +44,7 @@
       <p class="sub">A house of Allah at 802 Arcadia Street — on the doorstep of Hatfield and the Pretoria CBD, serving the community with daily salaah, Jumu&#8217;ah, madrasah and programmes.</p>
       <a class="btn btn-gold" href="#salaah">Salaah Times</a>
       <a class="btn btn-outline" href="#donate">Contribute</a>
+      <a class="btn btn-outline" href="about.html">About the Masjid</a>
     </div>
   </div>
 
@@ -103,7 +105,6 @@
             <li>Females: <a href="tel:+27608400007">+27 60 840 0007</a></li>
             <li>Males: <a href="tel:+27824110756">+27 82 411 0756</a></li>
           </ul>
-          <p class="foot">[Weekly ta&#8217;leem / bayaan schedule can be added here.]</p>
         </div>
       </div>
     </div>
@@ -165,7 +166,7 @@
             <li><span>📍</span><span>802 Arcadia Street, Arcadia, Pretoria</span></li>
             <li><span>📞</span><span>Females: <a href="tel:+27608400007">+27 60 840 0007</a></span></li>
             <li><span>📞</span><span>Males: <a href="tel:+27824110756">+27 82 411 0756</a></span></li>
-            <li><span>✉️</span><span>[Email address]</span></li>
+            <li><span>✉️</span><span id="masjidEmail"></span></li>
           </ul>
           <iframe class="map" title="Map to Masjid Khadijah" loading="lazy"
             src="https://www.google.com/maps?q=Masjid%20Khadijah%20802%20Arcadia%20Street%20Arcadia%20Pretoria&output=embed"></iframe>
@@ -186,6 +187,17 @@
   document.getElementById('yr').textContent = new Date().getFullYear();
   document.querySelectorAll('#nav a').forEach(a =>
     a.addEventListener('click', () => document.getElementById('nav').classList.remove('open')));
+
+  // Assemble the email at runtime so harvesters scanning the HTML never see it
+  (() => {
+    const el = document.getElementById('masjidEmail');
+    if (!el) return;
+    const addr = ['in', 'fo'].join('') + String.fromCharCode(64) + ['masjidkhadijah', 'co', 'za'].join('.');
+    const a = document.createElement('a');
+    a.href = 'mai' + 'lto:' + addr;
+    a.textContent = addr;
+    el.appendChild(a);
+  })();
 
   // ---- Salaah times, maintained by the masjid in a published Google Sheet ----
   // Tab "Salah Times" (gid 0): rows Fajr/Zuhr/Asr/Esha (B=adhaan, C=salaah),
