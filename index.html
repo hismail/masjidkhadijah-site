@@ -78,14 +78,14 @@
   .lead{color:var(--muted);max-width:46rem}
 
   /* Salaah times */
-  .times-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem;margin-top:2rem}
-  .time-tile{background:var(--black);border-radius:var(--radius);padding:1.3rem 1rem;text-align:center;box-shadow:var(--shadow)}
-  .time-tile .salaah{color:var(--gold);font-size:.8rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
-  .time-tile .trow{display:flex;justify-content:space-between;align-items:baseline;margin-top:.7rem;padding:0 .3rem}
-  .time-tile .tlabel{color:#9aa09a;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
-  .time-tile .tval{color:#fff;font-size:1.25rem;font-weight:700;font-variant-numeric:tabular-nums}
-  .time-tile .tval.hero{font-size:1.55rem}
-  .time-tile .sunset{color:#9aa09a;font-size:.72rem;margin-top:.5rem}
+  .times-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.8rem;margin-top:2rem}
+  .time-tile{background:var(--black);border-radius:12px;padding:.9rem 1rem 1rem;box-shadow:var(--shadow)}
+  .time-tile .salaah{color:var(--gold);font-size:.75rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;text-align:center}
+  .time-tile .trow{display:flex;justify-content:space-between;align-items:baseline;margin-top:.5rem}
+  .time-tile .tlabel{color:#9aa09a;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase}
+  .time-tile .tval{color:#d8dad4;font-size:1.05rem;font-weight:600;font-variant-numeric:tabular-nums}
+  .time-tile .tval.jamaat{color:#fff;font-size:1.18rem;font-weight:700}
+  .time-tile .sunset{color:#9aa09a;font-size:.68rem;margin-top:.45rem;text-align:center}
   .jumuah-card{margin-top:1.6rem;background:var(--ivory);border:1px solid var(--oak);border-radius:var(--radius);padding:1.3rem 1.5rem;display:flex;gap:1.2rem;flex-wrap:wrap;align-items:center;justify-content:space-between}
   .jumuah-card .jlabel{font-weight:700;color:var(--black);letter-spacing:.14em;text-transform:uppercase;font-size:.9rem}
   .jumuah-card .chips{display:flex;gap:.8rem;flex-wrap:wrap}
@@ -366,10 +366,11 @@
 
   function renderTimes(rows) {
     const get = label => rows.find(r => r.label.toLowerCase() === label.toLowerCase()) || {};
+    const pad = t => /^\d:\d\d/.test(t) ? '0' + t : t;
     const tile = (name, adhaan, salaah, extra) => `
       <div class="time-tile"><div class="salaah">${name}</div>
-        ${adhaan ? `<div class="trow"><span class="tlabel">Adhaan</span><span class="tval">${adhaan}</span></div>` : ''}
-        <div class="trow"><span class="tlabel">Salaah</span><span class="tval hero">${salaah}</span></div>
+        ${adhaan ? `<div class="trow"><span class="tlabel">Adhaan</span><span class="tval">${pad(adhaan)}</span></div>` : ''}
+        <div class="trow"><span class="tlabel">Salaah</span><span class="tval jamaat">${pad(salaah)}</span></div>
         ${extra ? `<div class="sunset">${extra}</div>` : ''}
       </div>`;
     const order = ['Fajr', 'Zuhr', 'Asr'];
