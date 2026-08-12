@@ -61,10 +61,11 @@
         <span class="jlabel">Jumu&#8217;ah</span>
         <span class="chips" id="jumuahChips"></span>
         <span class="speaker" id="jumuahSpeaker" hidden></span>
+        <p class="times-note" id="timesNote" hidden></p>
       </div>
 
+      <p class="times-note" id="timeChangeNote" hidden></p>
       <p class="times-meta" id="timesMeta"></p>
-      <p class="times-note" id="timesNote" hidden></p>
     </div>
   </section>
 
@@ -259,6 +260,13 @@
       const n = document.getElementById('timesNote');
       n.hidden = false;
       n.textContent = note;
+      document.getElementById('jumuahCard').hidden = false;
+    }
+    const tchange = (rows.find(r => r.label.toLowerCase().startsWith('time change')) || {}).b;
+    if (tchange) {
+      const tc = document.getElementById('timeChangeNote');
+      tc.hidden = false;
+      tc.textContent = tchange;
     }
   }
 
