@@ -78,12 +78,22 @@
   .lead{color:var(--muted);max-width:46rem}
 
   /* Salaah times */
-  .times-card{background:var(--ivory);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-top:2rem}
-  .times-card .board{width:100%;height:560px;border:0;display:block;background:var(--black)}
-  .times-actions{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;justify-content:space-between;padding:1rem 1.25rem;background:var(--charcoal)}
-  .times-actions p{font-size:.9rem;color:#b9bdb6}
-  .jumuah{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.6rem}
-  .jumuah .chip{background:var(--ivory);border:1px solid var(--oak);border-radius:999px;padding:.55rem 1.2rem;font-weight:600;color:var(--ink);font-size:.92rem}
+  .times-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem;margin-top:2rem}
+  .time-tile{background:var(--black);border-radius:var(--radius);padding:1.3rem 1rem;text-align:center;box-shadow:var(--shadow)}
+  .time-tile .salaah{color:var(--gold);font-size:.8rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+  .time-tile .trow{display:flex;justify-content:space-between;align-items:baseline;margin-top:.7rem;padding:0 .3rem}
+  .time-tile .tlabel{color:#9aa09a;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
+  .time-tile .tval{color:#fff;font-size:1.25rem;font-weight:700;font-variant-numeric:tabular-nums}
+  .time-tile .tval.hero{font-size:1.55rem}
+  .time-tile .sunset{color:#9aa09a;font-size:.72rem;margin-top:.5rem}
+  .jumuah-card{margin-top:1.6rem;background:var(--ivory);border:1px solid var(--oak);border-radius:var(--radius);padding:1.3rem 1.5rem;display:flex;gap:1.2rem;flex-wrap:wrap;align-items:center;justify-content:space-between}
+  .jumuah-card .jlabel{font-weight:700;color:var(--black);letter-spacing:.14em;text-transform:uppercase;font-size:.9rem}
+  .jumuah-card .chips{display:flex;gap:.8rem;flex-wrap:wrap}
+  .jumuah-card .chip{background:var(--black);color:var(--gold);border-radius:999px;padding:.5rem 1.2rem;font-weight:600;font-size:.92rem}
+  .jumuah-card .speaker{width:100%;font-size:.95rem;color:var(--muted)}
+  .jumuah-card .speaker strong{color:var(--ink)}
+  .times-meta{margin-top:1.1rem;font-size:.88rem;color:var(--muted)}
+  .times-note{margin-top:.4rem;font-size:.95rem;color:var(--oak-deep);font-weight:600}
 
   /* Programmes */
   .alt{background:var(--ivory)}
@@ -97,6 +107,16 @@
   .card li::before{content:"◆";color:var(--oak);font-size:.65rem;line-height:1.9}
   .card .foot{margin-top:.8rem;font-size:.88rem;color:var(--muted)}
   .card .foot strong{color:var(--ink)}
+  .card .when{margin-top:.6rem;font-size:.85rem;color:var(--oak-deep);font-weight:600}
+
+  /* Notice board */
+  .notices{background:var(--black);border-radius:var(--radius);padding:1.5rem 1.7rem;margin-top:2rem;box-shadow:var(--shadow)}
+  .notices h3{color:var(--gold);font-size:.9rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.8rem}
+  .notices ul{list-style:none}
+  .notices li{color:#e4e6e0;font-size:.95rem;padding:.45rem 0;border-top:1px solid rgba(255,255,255,.08);display:flex;gap:.7rem;flex-wrap:wrap}
+  .notices li:first-child{border-top:0}
+  .notices li strong{color:#fff}
+  .notices li .nwhen{color:var(--gold);font-size:.85rem;margin-left:auto;white-space:nowrap}
 
   /* Gallery */
   .gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:1rem;margin-top:2rem}
@@ -182,21 +202,18 @@
     <div class="wrap">
       <p class="kicker">Prayer Times</p>
       <h2>Daily Salaah &amp; Jumu&#8217;ah</h2>
-      <p class="lead">Our live board below is kept up to date by the masjid. If it does not load on your device, open it directly with the button underneath.</p>
+      <p class="lead">Adhaan and jamaat times at Masjid Khadijah, updated by the masjid. Maghrib is 3 minutes after sunset, calculated daily for Arcadia.</p>
 
-      <!-- Jumu'ah times: update these when they change -->
-      <div class="jumuah">
-        <span class="chip">Jumu&#8217;ah Talk: [12:45]</span>
-        <span class="chip">Jumu&#8217;ah Salaah: [13:15]</span>
+      <div class="times-grid" id="timesGrid"></div>
+
+      <div class="jumuah-card" id="jumuahCard" hidden>
+        <span class="jlabel">Jumu&#8217;ah</span>
+        <span class="chips" id="jumuahChips"></span>
+        <span class="speaker" id="jumuahSpeaker" hidden></span>
       </div>
 
-      <div class="times-card">
-        <iframe class="board" src="https://masjidboardlive.com/boards/?id=arcadia-khadijah" title="Masjid Khadijah live salaah times board" loading="lazy"></iframe>
-        <div class="times-actions">
-          <p>Live board updated by the masjid.</p>
-          <a class="btn btn-gold" href="https://masjidboardlive.com/boards/?id=arcadia-khadijah" target="_blank" rel="noopener">Open Live Board ↗</a>
-        </div>
-      </div>
+      <p class="times-meta" id="timesMeta"></p>
+      <p class="times-note" id="timesNote" hidden></p>
     </div>
   </section>
 
@@ -205,7 +222,13 @@
       <p class="kicker">Community</p>
       <h2>Programmes &amp; Madrasah</h2>
       <p class="lead">Alhamdulillah, the masjid hosts regular programmes for all ages. Afternoon maktab admissions for 2026 are open.</p>
-      <div class="cards">
+
+      <div class="notices" id="noticesBox" hidden>
+        <h3>Notice Board</h3>
+        <ul id="noticesList"></ul>
+      </div>
+
+      <div class="cards" id="programmeCards">
         <div class="card">
           <div class="icon">📖</div>
           <h3>Maktab – Boys</h3>
@@ -315,6 +338,118 @@
   document.getElementById('yr').textContent = new Date().getFullYear();
   document.querySelectorAll('#nav a').forEach(a =>
     a.addEventListener('click', () => document.getElementById('nav').classList.remove('open')));
+
+  // ---- Salaah times, maintained by the masjid in a published Google Sheet ----
+  // Tab "Salah Times" (gid 0): rows Fajr/Zuhr/Asr/Esha (B=adhaan, C=salaah),
+  // Jumuah Adhaan / Jumuah Talk / Jumuah Salaah / Speaker / Note (value in B).
+  // Tab "Notices/Programmes" (gid 565669592): Type | Title | Details | When.
+  const PUB_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRTr9kR4SyfroDH5hAJCIE7Sj8FF6PcuQ3MUzpzy727GX431kQvPGYDfOH6fwUwWuCeR8jOcvNmKQjD/pub';
+  const GID_TIMES = 0, GID_PROGRAMMES = 565669592;
+
+  // Sunset for Arcadia, Pretoria (NOAA solar equations); Maghrib = sunset + 3 min.
+  function maghribTime(date) {
+    const lat = -25.7461 * Math.PI / 180, lon = 28.2087, tz = 2;
+    const start = new Date(date.getFullYear(), 0, 0);
+    const doy = Math.floor((date - start) / 86400000);
+    const g = 2 * Math.PI / 365 * (doy - 1 + 0.5);
+    const eqtime = 229.18 * (0.000075 + 0.001868 * Math.cos(g) - 0.032077 * Math.sin(g)
+      - 0.014615 * Math.cos(2 * g) - 0.040849 * Math.sin(2 * g));
+    const decl = 0.006918 - 0.399912 * Math.cos(g) + 0.070257 * Math.sin(g)
+      - 0.006758 * Math.cos(2 * g) + 0.000907 * Math.sin(2 * g)
+      - 0.002697 * Math.cos(3 * g) + 0.00148 * Math.sin(3 * g);
+    const ha = Math.acos(Math.cos(90.833 * Math.PI / 180) / (Math.cos(lat) * Math.cos(decl))
+      - Math.tan(lat) * Math.tan(decl)) * 180 / Math.PI;
+    const sunsetUTC = 720 - 4 * (lon - ha) - eqtime;          // minutes UTC
+    const m = Math.round(sunsetUTC + tz * 60) + 3;             // +3 min after sunset
+    return String(Math.floor(m / 60) % 24).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0');
+  }
+
+  function renderTimes(rows) {
+    const get = label => rows.find(r => r.label.toLowerCase() === label.toLowerCase()) || {};
+    const tile = (name, adhaan, salaah, extra) => `
+      <div class="time-tile"><div class="salaah">${name}</div>
+        ${adhaan ? `<div class="trow"><span class="tlabel">Adhaan</span><span class="tval">${adhaan}</span></div>` : ''}
+        <div class="trow"><span class="tlabel">Salaah</span><span class="tval hero">${salaah}</span></div>
+        ${extra ? `<div class="sunset">${extra}</div>` : ''}
+      </div>`;
+    const order = ['Fajr', 'Zuhr', 'Asr'];
+    let html = order.map(n => { const r = get(n); return tile(n, r.b, r.c || '–'); }).join('');
+    html += tile('Maghrib', '', maghribTime(new Date()), '3 min after sunset');
+    const esha = get('Esha');
+    html += tile('Esha', esha.b, esha.c || '–');
+    document.getElementById('timesGrid').innerHTML = html;
+
+    const jAdhaan = get('Jumuah Adhaan').b, jTalk = get('Jumuah Talk').b,
+          jSalaah = get('Jumuah Salaah').b, speaker = get('Speaker').b, note = get('Note').b;
+    const chips = [['Adhaan', jAdhaan], ['Talk', jTalk], ['Salaah', jSalaah]].filter(c => c[1]);
+    if (chips.length) {
+      document.getElementById('jumuahCard').hidden = false;
+      document.getElementById('jumuahChips').innerHTML =
+        chips.map(c => `<span class="chip">${c[0]}: ${c[1]}</span>`).join('');
+      if (speaker) {
+        const sp = document.getElementById('jumuahSpeaker');
+        sp.hidden = false;
+        sp.innerHTML = 'This week’s speaker: <strong></strong>';
+        sp.querySelector('strong').textContent = speaker;
+      }
+    }
+    if (note) {
+      const n = document.getElementById('timesNote');
+      n.hidden = false;
+      n.textContent = note;
+    }
+  }
+
+  // Second sheet tab "Programmes": Type (Programme|Notice) | Title | Details | When
+  function renderProgrammes(rows) {
+    const esc = s => { const d = document.createElement('span'); d.textContent = s; return d.innerHTML; };
+    const notices = rows.filter(r => r.type.toLowerCase().startsWith('notice'));
+    const progs = rows.filter(r => r.type.toLowerCase().startsWith('prog'));
+    if (notices.length) {
+      document.getElementById('noticesBox').hidden = false;
+      document.getElementById('noticesList').innerHTML = notices.map(n =>
+        `<li><strong>${esc(n.title)}</strong> ${esc(n.details)}${n.when ? `<span class="nwhen">${esc(n.when)}</span>` : ''}</li>`).join('');
+    }
+    if (progs.length) {
+      document.getElementById('programmeCards').insertAdjacentHTML('beforeend', progs.map(p => `
+        <div class="card"><div class="icon">🕌</div>
+          <h3>${esc(p.title)}</h3>
+          <p>${esc(p.details)}</p>
+          ${p.when ? `<p class="when">${esc(p.when)}</p>` : ''}
+        </div>`).join(''));
+    }
+  }
+
+  const unquote = f => {
+    f = f.trim();
+    if (f.startsWith('"') && f.endsWith('"')) f = f.slice(1, -1).replace(/""/g, '"');
+    return f.trim();
+  };
+  const fetchTab = gid =>
+    fetch(`${PUB_URL}?output=tsv&gid=${gid}&t=` + Date.now())
+      .then(r => { if (!r.ok) throw 0; return r.text(); })
+      .then(txt => txt.split(/\r?\n/).map(line => line.split('\t').map(unquote)));
+
+  fetchTab(GID_TIMES)
+    .then(raw => {
+      const rows = raw
+        .map(f => ({ label: f[0] || '', b: f[1] || '', c: f[2] || '' }))
+        .filter(r => r.label && r.label.toLowerCase() !== 'salaah');
+      renderTimes(rows);
+    })
+    .catch(() => {
+      document.getElementById('timesMeta').textContent =
+        'Salaah times are temporarily unavailable — please contact the masjid.';
+    });
+
+  fetchTab(GID_PROGRAMMES)
+    .then(raw => {
+      const rows = raw
+        .map(f => ({ type: f[0] || '', title: f[1] || '', details: f[2] || '', when: f[3] || '' }))
+        .filter(r => r.type && r.type.toLowerCase() !== 'type' && r.title);
+      renderProgrammes(rows);
+    })
+    .catch(() => {}); // tab missing or empty — section just shows the maktab cards
 </script>
 
 </body>
