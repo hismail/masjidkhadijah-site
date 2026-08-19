@@ -268,7 +268,8 @@
         const sp = document.getElementById('jumuahSpeaker');
         sp.hidden = false;
         sp.innerHTML = 'This week’s speaker: <strong></strong>';
-        sp.querySelector('strong').textContent = speaker;
+        sp.querySelector('strong').textContent =
+          speaker.toLowerCase().replace(/(^|[\s\-'’])\S/g, c => c.toUpperCase());
       }
     }
     if (note) {
